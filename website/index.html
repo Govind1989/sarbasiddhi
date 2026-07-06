@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarbasiddhi | Industrial Engineering</title>
+    
+    <!-- Fonts: Manrope (Sans) & Playfair Display (Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#F7F6F2',
+                        surface: '#FFFFFF',
+                        primary: '#1A1A1A',
+                        secondary: '#666666',
+                        accent: '#B8960C',
+                        'accent-light': '#C9A84C',
+                        'accent-muted': '#E8D5A0',
+                        border: '#E2E0D8'
+                    },
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #F7F6F2;
+            color: #1A1A1A;
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection {
+            background-color: #B8960C;
+            color: #FFF;
+        }
+        
+        /* Lenis Smooth Scroll Setup */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+        /* Animation Utilities */
+        .reveal-line {
+            overflow: hidden;
+            display: inline-flex;
+            vertical-align: top;
+        }
+        .reveal-line-inner {
+            transform: translateY(110%);
+            display: inline-block;
+        }
+        
+        .clip-image {
+            clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+        }
+
+        /* Buttons */
+        .btn-premium {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 2px;
+            background-color: #1A1A1A;
+            color: #ffffff;
+            transition: color 0.4s ease;
+        }
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(135deg, #B8960C, #C9A84C);
+            transition: height 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+            z-index: 1;
+        }
+        .btn-premium:hover::before {
+            height: 100%;
+        }
+        .btn-premium span {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Layout Utilities */
+        .section-padding {
+            padding: 8rem 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .section-padding { padding: 12rem 4rem; }
+        }
+
+        /* Heartbeat Wave Animation for Stat Cards */
+        @keyframes heartbeatWave {
+            0%, 100% { transform: scaleX(0.8); opacity: 0.3; filter: blur(12px); }
+            15% { transform: scaleX(1.1); opacity: 1; filter: blur(24px); }
+            30% { transform: scaleX(0.9); opacity: 0.5; filter: blur(16px); }
+            45% { transform: scaleX(1.05); opacity: 1; filter: blur(20px); }
+        }
+        .stat-card.wave-active .heartbeat-blur {
+            animation: heartbeatWave 2s ease-in-out infinite;
+            opacity: 1 !important;
+        }
+        .stat-card.wave-active .heartbeat-line {
+            width: 100%;
+            opacity: 1 !important;
+            background-image: linear-gradient(to left, transparent, #B8960C, #C9A84C, #B8960C, transparent) !important;
+        }
+        
+        .horizontal-section {
+            overflow: hidden;
+        }
+        .horizontal-scroll-container {
+            will-change: transform;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 mix-blend-difference px-6 py-8 md:px-12 flex justify-between items-center text-white pointer-events-none">
+        <div class="font-serif text-2xl tracking-wide pointer-events-auto cursor-pointer">Sarbasiddhi.</div>
+        <div class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.15em] uppercase pointer-events-auto">
+            <a href="#about" class="hover:opacity-60 transition-opacity">About</a>
+            <a href="#services" class="hover:opacity-60 transition-opacity">Services</a>
+            <a href="#portfolio" class="hover:opacity-60 transition-opacity">Portfolio</a>
+            <a href="#contact" class="hover:opacity-60 transition-opacity">Contact</a>
+        </div>
+    </nav>
+
+    <!-- 01 HERO -->
+    <section id="hero-section" class="relative min-h-screen pt-40 md:pt-48 px-6 md:px-12 flex flex-col justify-between overflow-hidden">
+        
+        <!-- Background Animation -->
+        <div class="layered-hero absolute inset-0 w-full h-full -z-10">
+            <div class="trigger-zone w-full h-full relative">
+                <div class="absolute inset-0 bg-[#F7F6F2]/20 z-50 pointer-events-none mix-blend-lighten"></div>
+                <img src="images/hero-image/foundation.jpeg" class="layer layer-1 absolute inset-0 w-full h-full object-cover z-10" alt="Foundation">
+                <img src="images/hero-image/framework.jpeg" class="layer layer-2 absolute inset-0 w-full h-full object-cover z-20" alt="Steel Skeleton">
+                <img src="images/hero-image/walls.jpeg" class="layer layer-3 absolute inset-0 w-full h-full object-cover z-30" alt="Enclosure">
+                <img src="images/hero-image/finished.jpeg" class="layer layer-4 absolute inset-0 w-full h-full object-cover z-40" alt="Final Polish">
+                <div class="absolute inset-0 bg-white/20 z-40 pointer-events-none"></div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto w-full z-10">
+            <h1 class="text-[12vw] md:text-8xl lg:text-9xl font-serif leading-[0.9] tracking-tight">
+                <span class="reveal-line block"><span class="reveal-line-inner text-[#EFF3D3A1]">Precision in</span></span>
+                <span class="reveal-line block"><span class="reveal-line-inner italic text-[#EFF3D3A1]">Industrial</span></span>
+                <span class="reveal-line block"><span class="reveal-line-inner text-[#EFF3D3A1]">Engineering.</span></span>
+            </h1>
+            
+            <div class="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-end pb-20">
+                <div class="text-primary font-medium text-sm md:text-base max-w-sm leading-relaxed backdrop-blur-md bg-white/50 p-6 md:p-8 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white/60">
+                    <span class="reveal-line block"><span class="reveal-line-inner">Comprehensive technical design and</span></span>
+                    <span class="reveal-line block"><span class="reveal-line-inner">consultancy solutions for industrial</span></span>
+                    <span class="reveal-line block"><span class="reveal-line-inner">setup and operational excellence.</span></span>
+                </div>
+                <div class="flex md:justify-end">
+                    <div class="reveal-line">
+                        <span class="reveal-line-inner">
+                            <a href="#contact" class="btn-premium px-10 py-5 text-xs font-semibold tracking-[0.15em] uppercase shadow-xl">
+                                <span>Discuss a Project</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 ABOUT / STATS -->
+    <section id="about" class="section-padding">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-4 text-xs font-semibold tracking-[0.15em] uppercase text-secondary">
+                    <span class="reveal-line"><span class="reveal-line-inner">01 &mdash; Who We Are</span></span>
+                </div>
+                <div class="md:col-span-8">
+                    <h2 class="text-3xl md:text-5xl lg:text-6xl font-serif leading-tight">
+                        <span class="reveal-line block"><span class="reveal-line-inner">We are a multi-disciplinary</span></span>
+                        <span class="reveal-line block"><span class="reveal-line-inner">engineering consulting firm,</span></span>
+                        <span class="reveal-line block"><span class="reveal-line-inner text-[#a47e1b] italic">executing complete technical</span></span>
+                        <span class="reveal-line block"><span class="reveal-line-inner ">solutions from <span class="text-[#a47e1b]">conceptualization</span></span></span>
+                        <span class="reveal-line block"><span class="reveal-line-inner">to final <span class="text-[#a47e1b]">commissioning</span>.</span></span>
+                    </h2>
+                    
+                    <div class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 text-left fade-up">
+                        
+                        <!-- Card 1 -->
+                        <div class="stat-card m-auto w-full transition-all duration-500 cursor-pointer group bg-gradient-to-br from-white to-[#F7F6F2] hover:from-white hover:to-white border border-white shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] rounded-sm overflow-hidden relative backdrop-blur-sm">
+                            <div class="px-8 py-10">
+                                
+                                <div class="uppercase font-bold text-5xl md:text-6xl text-primary mb-2 font-serif counter" data-target="50">0</div>
+                                <div class="text-secondary uppercase tracking-widest text-xs font-semibold">
+                                    Industrial Projects
+                                </div>
+                                <div class="text-secondary mt-8 text-xs border-t border-border pt-4">
+                                    <p class="font-bold text-primary">Delivered</p>
+                                    <p>Perfect execution everywhere</p>
+                                </div>
+                            </div>
+                            <div class="heartbeat-blur h-2 w-full bg-gradient-to-l via-accent group-hover:blur-xl blur-2xl m-auto rounded transition-all absolute bottom-0 opacity-0"></div>
+                            <div class="heartbeat-line h-0.5 group-hover:w-full bg-gradient-to-l via-accent/30 group-hover:via-accent w-[70%] m-auto rounded transition-all absolute bottom-0 left-0 right-0 opacity-0"></div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="stat-card m-auto w-full transition-all duration-500 cursor-pointer group bg-gradient-to-br from-white to-[#F7F6F2] hover:from-white hover:to-white border border-white shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] rounded-sm overflow-hidden relative backdrop-blur-sm">
+                            <div class="px-8 py-10">
+                                
+                                <div class="uppercase font-bold text-5xl md:text-6xl text-primary mb-2 font-serif counter" data-target="15">0</div>
+                                <div class="text-secondary uppercase tracking-widest text-xs font-semibold">
+                                    Major Clients
+                                </div>
+                                <div class="text-secondary mt-8 text-xs border-t border-border pt-4">
+                                    <p class="font-bold text-primary">Partnered</p>
+                                    <p>Long-term relationships</p>
+                                </div>
+                            </div>
+                            <div class="heartbeat-blur h-2 w-full bg-gradient-to-l via-accent group-hover:blur-xl blur-2xl m-auto rounded transition-all absolute bottom-0 opacity-0"></div>
+                            <div class="heartbeat-line h-0.5 group-hover:w-full bg-gradient-to-l via-accent/30 group-hover:via-accent w-[70%] m-auto rounded transition-all absolute bottom-0 left-0 right-0 opacity-0"></div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="stat-card m-auto w-full transition-all duration-500 cursor-pointer group bg-gradient-to-br from-white to-[#F7F6F2] hover:from-white hover:to-white border border-white shadow-[0_15px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] rounded-sm overflow-hidden relative backdrop-blur-sm">
+                            <div class="px-8 py-10">
+                                
+                                <div class="uppercase font-bold text-5xl md:text-6xl text-primary mb-2 font-serif counter" data-target="6">0</div>
+                                <div class="text-secondary uppercase tracking-widest text-xs font-semibold">
+                                    Years Executing
+                                </div>
+                                <div class="text-secondary mt-8 text-xs border-t border-border pt-4">
+                                    <p class="font-bold text-primary">Experience</p>
+                                    <p>Industry-leading expertise</p>
+                                </div>
+                            </div>
+                            <div class="heartbeat-blur h-2 w-full bg-gradient-to-l via-accent group-hover:blur-xl blur-2xl m-auto rounded transition-all absolute bottom-0 opacity-0"></div>
+                            <div class="heartbeat-line h-0.5 group-hover:w-full bg-gradient-to-l via-accent/30 group-hover:via-accent w-[70%] m-auto rounded transition-all absolute bottom-0 left-0 right-0 opacity-0"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 SERVICES (Sticky Scroll) -->
+    <section id="services" class="relative section-padding bg-surface">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row gap-16 md:gap-24 relative items-start">
+                <!-- Sticky Sidebar -->
+                <div class="md:w-1/3 md:sticky top-40">
+                    <div class="text-xs font-semibold tracking-[0.15em] uppercase text-secondary mb-8">
+                        <span class="reveal-line"><span class="reveal-line-inner">02 &mdash; Expertise</span></span>
+                    </div>
+                    <h2 class="text-5xl md:text-6xl font-serif mb-8">
+                        <span class="reveal-line block"><span class="reveal-line-inner">Core</span></span>
+                        <span class="reveal-line block"><span class="reveal-line-inner italic text-accent">Capabilities.</span></span>
+                    </h2>
+                    <p class="text-sm text-secondary max-w-xs leading-relaxed fade-up">
+                        Integrating engineering precision with practical field exposure to deliver technically sound, cost-effective infrastructure.
+                    </p>
+                </div>
+                
+                <!-- Scrolling Content -->
+                <div class="md:w-2/3 flex flex-col gap-16 md:gap-32">
+                    <!-- Service 1 -->
+                    <div class="border-t border-border pt-8 fade-up">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8">
+                            <h3 class="text-3xl font-serif">Engineering Design</h3>
+                            <span class="text-accent text-sm font-semibold tracking-widest mt-2 sm:mt-0">01</span>
+                        </div>
+                        <div class="w-full h-72 md:h-[32rem] mb-8 clip-image overflow-hidden">
+                            <img src="images/service-engineering.jpg" class="w-full h-full object-cover" alt="Engineering">
+                        </div>
+                        <p class="text-secondary text-sm leading-relaxed max-w-lg">Complete 2D & 3D engineering design and drafting services including factory layout, machinery placement, and production line flow.</p>
+                    </div>
+                    
+                    <!-- Service 2 -->
+                    <div class="border-t border-border pt-8 fade-up">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8">
+                            <h3 class="text-3xl font-serif">Civil & Structural</h3>
+                            <span class="text-accent text-sm font-semibold tracking-widest mt-2 sm:mt-0">02</span>
+                        </div>
+                        <div class="w-full h-72 md:h-[32rem] mb-8 clip-image overflow-hidden">
+                            <img src="images/service-architecture.jpg" class="w-full h-full object-cover" alt="Civil">
+                        </div>
+                        <p class="text-secondary text-sm leading-relaxed max-w-lg">Industrial foundations, heavy machinery foundation, RCC structures, PEB, and comprehensive structural analysis.</p>
+                    </div>
+                    
+                    <!-- Service 3 -->
+                    <div class="border-t border-border pt-8 fade-up">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8">
+                            <h3 class="text-3xl font-serif">MEP Consultancy</h3>
+                            <span class="text-accent text-sm font-semibold tracking-widest mt-2 sm:mt-0">03</span>
+                        </div>
+                        <div class="w-full h-72 md:h-[32rem] mb-8 clip-image overflow-hidden">
+                            <img src="images/service-mep.jpg" class="w-full h-full object-cover" alt="MEP">
+                        </div>
+                        <p class="text-secondary text-sm leading-relaxed max-w-lg">HVAC systems, electrical load calculations, transformer sizing, plumbing, firefighting, and STP/ETP planning.</p>
+                    </div>
+                    
+                    <!-- Service 4 -->
+                    <div class="border-t border-border pt-8 fade-up">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8">
+                            <h3 class="text-3xl font-serif">Industrial Setup</h3>
+                            <span class="text-accent text-sm font-semibold tracking-widest mt-2 sm:mt-0">04</span>
+                        </div>
+                        <div class="w-full h-72 md:h-[32rem] mb-8 clip-image overflow-hidden">
+                            <img src="images/service-setup.jpg" class="w-full h-full object-cover" alt="Setup">
+                        </div>
+                        <p class="text-secondary text-sm leading-relaxed max-w-lg">Feasibility study, plant layout, utility setup, installation support, production trial, and full commissioning.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 PORTFOLIO (Horizontal Scroll) -->
+    <section id="portfolio" class="horizontal-section bg-primary text-white overflow-hidden relative">
+        <div class="pt-32 px-6 md:px-12 mb-16">
+            <div class="text-xs font-semibold tracking-[0.15em] uppercase text-[#B8960C] mb-6">
+                <span class="reveal-line"><span class="reveal-line-inner">03 &mdash; Portfolio</span></span>
+            </div>
+            <h2 class="text-5xl md:text-7xl font-serif">
+                <span class="reveal-line block"><span class="reveal-line-inner">Selected</span><span class="reveal-line-inner italic text-[#C9A84C]">Works</span></span>
+                
+            </h2>
+        </div>
+        
+        <div class="horizontal-scroll-container flex flex-nowrap w-max gap-8 md:gap-16 items-center px-6 md:px-12 pb-32">
+            
+            <div class="w-[85vw] md:w-[45vw] flex-shrink-0 group">
+                <div class="w-full h-[30vh] md:h-[40vh] overflow-hidden">
+                    <img src="images/hero-construction-early.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out opacity-90" alt="Patanjali">
+                </div>
+                <div class="mt-8 flex justify-between items-start border-t border-[#B8960C]/20 pt-6">
+                    <div>
+                        <h3 class="text-2xl font-serif mb-2 group-hover:text-[#C9A84C] transition-colors duration-500">Patanjali Nepal Plant</h3>
+                        <p class="text-sm text-gray-400">Industrial Complex</p>
+                    </div>
+                    <span class="text-[10px] tracking-widest uppercase text-[#B8960C]/60">Semrahawa</span>
+                </div>
+            </div>
+            
+            <div class="w-[85vw] md:w-[45vw] flex-shrink-0 group">
+                <div class="w-full h-[30vh] md:h-[40vh] overflow-hidden">
+                    <img src="images/service-architecture.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out opacity-90" alt="Brij Glass">
+                </div>
+                <div class="mt-8 flex justify-between items-start border-t border-[#B8960C]/20 pt-6">
+                    <div>
+                        <h3 class="text-2xl font-serif mb-2 group-hover:text-[#C9A84C] transition-colors duration-500">Brij Glass Industries</h3>
+                        <p class="text-sm text-gray-400">Manufacturing Plant</p>
+                    </div>
+                    <span class="text-[10px] tracking-widest uppercase text-[#B8960C]/60">Rupandehi</span>
+                </div>
+            </div>
+            
+            <div class="w-[85vw] md:w-[45vw] flex-shrink-0 group">
+                <div class="w-full h-[30vh] md:h-[40vh] overflow-hidden">
+                    <img src="images/service-mep.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out opacity-90" alt="Buddha Star">
+                </div>
+                <div class="mt-8 flex justify-between items-start border-t border-[#B8960C]/20 pt-6">
+                    <div>
+                        <h3 class="text-2xl font-serif mb-2 group-hover:text-[#C9A84C] transition-colors duration-500">Buddha Star Hotel</h3>
+                        <p class="text-sm text-gray-400">Hospitality</p>
+                    </div>
+                    <span class="text-[10px] tracking-widest uppercase text-[#B8960C]/60">Rupandehi</span>
+                </div>
+            </div>
+            
+            <div class="w-[85vw] md:w-[45vw] flex-shrink-0 group">
+                <div class="w-full h-[30vh] md:h-[40vh] overflow-hidden">
+                    <img src="images/service-setup.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out opacity-90" alt="Agrivastu">
+                </div>
+                <div class="mt-8 flex justify-between items-start border-t border-[#B8960C]/20 pt-6">
+                    <div>
+                        <h3 class="text-2xl font-serif mb-2 group-hover:text-[#C9A84C] transition-colors duration-500">Agrivastu Cold Storage</h3>
+                        <p class="text-sm text-gray-400">Industrial Storage</p>
+                    </div>
+                    <span class="text-[10px] tracking-widest uppercase text-[#B8960C]/60">Taulihawa</span>
+                </div>
+            </div>
+            
+            <!-- End Spacer ensures last item fully visible -->
+            <div class="w-[10vw] flex-shrink-0"></div>
+        </div>
+    </section>
+
+    <!-- 05 LEADERSHIP (Editorial Layout) -->
+    <section class="section-padding bg-surface">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
+                <div class="clip-image overflow-hidden h-[60vh] md:h-[80vh]">
+                    <img src="images/director-profile.jpg" class="w-full h-full object-cover grayscale opacity-90" alt="Leadership">
+                </div>
+                <div class="md:-ml-12 lg:-ml-24 z-10 bg-surface/90 backdrop-blur-sm p-8 md:p-12 lg:p-16 shadow-[0_30px_60px_rgba(0,0,0,0.05)] border border-border">
+                    <div class="text-xs font-semibold tracking-[0.15em] uppercase text-secondary mb-8">
+                        <span class="reveal-line"><span class="reveal-line-inner">04 &mdash; Leadership</span></span>
+                    </div>
+                    <h2 class="text-4xl md:text-6xl font-serif mb-4">
+                        <span class="reveal-line block"><span class="reveal-line-inner">Er. Saroj Shah</span></span>
+                    </h2>
+                    <p class="text-[#B8960C] text-xs font-semibold uppercase tracking-widest mb-10 fade-up">Executive Director</p>
+                    
+                    <div class="text-secondary text-sm leading-loose space-y-6 fade-up">
+                        <p>
+                            A highly experienced engineering professional with more than a decade of expertise in industrial operations, manufacturing systems, process optimization, MEP coordination, and energy efficiency improvement.
+                        </p>
+                        <p class="italic text-primary border-l-[2px] border-[#B8960C] pl-6 text-base">
+                            "With strong analytical capability and practical field exposure, we integrate engineering precision with cost efficiency to deliver technically sound and financially viable solutions."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 06 CONTACT & FOOTER -->
+    <section id="contact" class="pt-24 md:pt-40 pb-12 px-6 md:px-12 bg-background border-t border-border">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 border-b border-border pb-24 md:pb-32">
+                <div>
+                    <div class="text-xs font-semibold tracking-[0.15em] uppercase text-secondary mb-8">
+                        <span class="reveal-line"><span class="reveal-line-inner">05 &mdash; Connect</span></span>
+                    </div>
+                    <h2 class="text-5xl md:text-7xl lg:text-8xl font-serif mb-16 leading-[1.1]">
+                        <span class="reveal-line block"><span class="reveal-line-inner">Let's build</span></span>
+                        <span class="reveal-line block"><span class="reveal-line-inner text-[#B8960C] italic">the future.</span></span>
+                    </h2>
+                    <div class="space-y-8 fade-up border-t border-border pt-8">
+                        <div>
+                            <p class="text-[10px] font-semibold tracking-widest uppercase text-secondary mb-2">Headquarters</p>
+                            <p class="text-lg">Tillottama - 15, Rupandehi, Nepal</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-semibold tracking-widest uppercase text-secondary mb-2">Electronic Inquiries</p>
+                            <p class="text-lg">sarbasiddhiconsultant@gmail.com</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-semibold tracking-widest uppercase text-secondary mb-2">Direct Lines</p>
+                            <p class="text-lg">+977 9857016559 <span class="text-border mx-3">|</span> +977 9849038915</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-up lg:pt-32">
+                    <form class="space-y-10">
+                        <div class="border-b border-border pb-3 group">
+                            <label class="text-[10px] font-semibold tracking-widest uppercase text-secondary mb-2 block transition-colors group-focus-within:text-primary">What is your name?</label>
+                            <input type="text" class="w-full bg-transparent outline-none text-xl md:text-2xl font-serif placeholder:text-border focus:placeholder:text-transparent transition-colors">
+                        </div>
+                        <div class="border-b border-border pb-3 group">
+                            <label class="text-[10px] font-semibold tracking-widest uppercase text-secondary mb-2 block transition-colors group-focus-within:text-primary">Your email address</label>
+                            <input type="email" class="w-full bg-transparent outline-none text-xl md:text-2xl font-serif placeholder:text-border focus:placeholder:text-transparent transition-colors">
+                        </div>
+                        <div class="border-b border-border pb-3 group">
+                            <label class="text-[10px] font-semibold tracking-widest uppercase text-secondary mb-2 block transition-colors group-focus-within:text-primary">Service of interest</label>
+                            <input type="text" class="w-full bg-transparent outline-none text-xl md:text-2xl font-serif placeholder:text-border focus:placeholder:text-transparent transition-colors">
+                        </div>
+                        <div class="border-b border-border pb-3 group">
+                            <label class="text-[10px] font-semibold tracking-widest uppercase text-secondary mb-2 block transition-colors group-focus-within:text-primary">Tell us about your project</label>
+                            <textarea rows="1" class="w-full bg-transparent outline-none text-xl md:text-2xl font-serif placeholder:text-border focus:placeholder:text-transparent transition-colors resize-none overflow-hidden"></textarea>
+                        </div>
+                        <button type="button" class="btn-premium px-12 py-5 text-xs font-semibold tracking-[0.15em] uppercase mt-4 w-full md:w-auto">
+                            <span>Submit Inquiry</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center mt-12 gap-6 fade-up">
+                <p class="text-[10px] font-semibold tracking-[0.2em] uppercase text-secondary">&copy; 2025 Sarbasiddhi Consultants.</p>
+                <div class="font-serif text-3xl md:text-5xl lg:text-7xl tracking-tighter font-bold bg-gradient-to-r from-[#B8960C] via-[#E8D5A0] to-[#B8960C] bg-clip-text text-transparent">SARBASIDDHI.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Smooth Scrolling via Lenis
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+
+            // Sync ScrollTrigger with Lenis
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+            gsap.ticker.lagSmoothing(0);
+
+            // 2. Text Reveals
+            const revealLines = document.querySelectorAll('.reveal-line-inner');
+            revealLines.forEach(line => {
+                gsap.to(line, {
+                    y: '0%',
+                    duration: 1.2,
+                    ease: 'power4.out',
+                    scrollTrigger: {
+                        trigger: line.closest('.reveal-line'),
+                        start: 'top 95%',
+                    }
+                });
+            });
+
+            // 3. Image Clips & Parallax
+            const clipImages = document.querySelectorAll('.clip-image');
+            clipImages.forEach(img => {
+                // Reveal mask
+                gsap.to(img, {
+                    clipPath: 'polygon(0 0%, 100% 0%, 100% 100%, 0 100%)',
+                    duration: 1.6,
+                    ease: 'power4.inOut',
+                    scrollTrigger: {
+                        trigger: img,
+                        start: 'top 90%',
+                    }
+                });
+                
+                // Scale inner image down
+                const innerImg = img.querySelector('img');
+                if (innerImg) {
+                    gsap.fromTo(innerImg, 
+                        { scale: 1.3 }, 
+                        { scale: 1, duration: 1.6, ease: 'power4.inOut', scrollTrigger: { trigger: img, start: 'top 90%' }}
+                    );
+                    
+                    // Subtle parallax on scroll
+                    gsap.to(innerImg, {
+                        yPercent: 15,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: img,
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: true
+                        }
+                    });
+                }
+            });
+
+            // Layered Hero Background Animation (Smooth Cinematic Reveal)
+            const heroTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#hero-section",
+                    start: "top top",
+                    end: "+=3000",
+                    pin: true,
+                    scrub: 1
+                }
+            });
+            
+            heroTl.fromTo(".layer-2", { clipPath: "inset(100% 0 0 0)" }, { clipPath: "inset(0% 0 0 0)", ease: "none", duration: 1 })
+                  .fromTo(".layer-3", { clipPath: "inset(100% 0 0 0)" }, { clipPath: "inset(0% 0 0 0)", ease: "none", duration: 1 })
+                  .fromTo(".layer-4", { autoAlpha: 0, scale: 1.05 }, { autoAlpha: 1, scale: 1, ease: "power1.inOut", duration: 1 });
+
+            // 4. Fade Up Elements
+            const fadeUps = document.querySelectorAll('.fade-up');
+            fadeUps.forEach(el => {
+                gsap.fromTo(el, 
+                    { opacity: 0, y: 40 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1.2,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 90%',
+                        }
+                    }
+                );
+            });
+
+            // 5. Horizontal Scroll for Portfolio
+            const horizontalSection = document.querySelector('.horizontal-section');
+            const horizontalScrollContainer = document.querySelector('.horizontal-scroll-container');
+            
+            if (horizontalSection && horizontalScrollContainer) {
+                // Determine accurate horizontal scroll distance
+                function getScrollAmount() {
+                    return -(horizontalScrollContainer.scrollWidth - window.innerWidth);
+                }
+
+                gsap.to(horizontalScrollContainer, {
+                    x: getScrollAmount,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: horizontalSection,
+                        pin: true,
+                        scrub: 1,
+                        end: () => `+=${horizontalScrollContainer.scrollWidth - window.innerWidth}`,
+                        invalidateOnRefresh: true
+                    }
+                });
+            }
+
+            // 6. Number Counters with Golden Particle Boundary
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                let target = +counter.getAttribute('data-target');
+                ScrollTrigger.create({
+                    trigger: counter,
+                    start: "top 85%",
+                    once: true,
+                    onEnter: () => {
+                        gsap.to(counter, {
+                            innerHTML: target,
+                            duration: 2.5,
+                            ease: "power2.out",
+                            snap: { innerHTML: 1 },
+                            onComplete: () => {
+                                counter.innerHTML = target + "+";
+                                counter.closest('.stat-card').classList.add('wave-active');
+                            }
+                        });
+                    }
+                });
+            });
+
+            // 6. Auto-resize Textarea in Contact Form
+            const textarea = document.querySelector('textarea');
+            if (textarea) {
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
